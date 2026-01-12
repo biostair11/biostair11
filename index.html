@@ -3,7 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NewroSync-11 | PC & Mobile</title>
+    <title>BioSTaiR-11 | Sistema de Correlación Neuronal</title>
+    <meta name="description" content="BioSTaiR-11 es un sistema de sincronización neuronal mediante geometría coherente. Explora los módulos de investigación en neuroplasticidad.">
+    <meta name="keywords" content="neuroplasticidad, sincronización neuronal, BioSTaiR-11, NewroSync-11, geometría coherente">
+    <meta name="author" content="Andru Stiven Rodríguez Bustos">
     <style>
         :root {
             /* PALETA AZUL-ARENA VIBRANTE */
@@ -20,74 +23,158 @@
             --sombra-arena: rgba(230, 183, 117, 0.4);
         }
 
-        body {
-            margin: 0; 
+        /* Reset y estilos generales */
+        * {
+            margin: 0;
             padding: 0;
-            background: var(--fondo-gradiente);
-            color: var(--texto-blanco);
-            font-family: 'Segoe UI', sans-serif;
-            display: flex; 
-            flex-direction: column; 
-            align-items: center;
-            min-height: 100vh;
+            box-sizing: border-box;
         }
 
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--fondo-gradiente);
+            color: var(--texto-blanco);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        /* Header */
         header { 
             text-align: center; 
             padding: 30px 20px;
             width: 100%;
-            max-width: 500px;
+            max-width: 800px;
         }
 
         h1 { 
-            font-size: 2.2rem;
+            font-size: 2.5rem;
             background: linear-gradient(90deg, var(--azul-cielo), var(--arena-dorada));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             letter-spacing: 3px; 
-            margin-bottom: 5px;
+            margin-bottom: 10px;
             text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
         }
 
         .subtitle {
             color: var(--texto-arena);
-            opacity: 0.8;
-            font-size: 0.9rem;
-            letter-spacing: 1px;
+            opacity: 0.9;
+            font-size: 1rem;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
         }
 
+        /* Contenedor principal */
         .sync-container { 
             width: 100%; 
-            max-width: 500px; 
+            max-width: 800px; 
             padding: 20px;
         }
 
-        /* CONTENEDOR DEL SLIDER */
+        /* Etiquetas de fase */
+        .etiqueta { 
+            font-size: 1rem; 
+            letter-spacing: 2px; 
+            text-align: center; 
+            margin-bottom: 20px;
+            font-weight: bold;
+            padding: 10px 20px;
+            border-radius: 25px;
+            display: inline-block;
+            margin-left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .etiqueta-Tesla {
+            color: var(--arena-dorada);
+            background: rgba(244, 162, 97, 0.15);
+            border: 1px solid rgba(244, 162, 97, 0.4);
+        }
+
+        .etiqueta-Mandelbrot {
+            color: var(--azul-cielo);
+            background: rgba(78, 201, 240, 0.15);
+            border: 1px solid rgba(78, 201, 240, 0.4);
+        }
+
+        /* Contenedor del carrusel */
         .slider-wrapper {
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
-            margin: 20px 0;
+            margin: 20px 0 40px;
         }
 
         .carrusel {
             display: flex;
-            overflow: hidden;
+            overflow-x: auto;
             scroll-behavior: smooth;
-            width: 180px; /* Ancho de un solo hexágono + margen */
+            scrollbar-width: none; /* Firefox */
+            width: 180px;
             gap: 40px;
+            padding: 10px 0;
+        }
+
+        .carrusel::-webkit-scrollbar {
+            display: none; /* Chrome, Safari, Edge */
         }
 
         .item-hex {
             flex: 0 0 180px;
             display: flex;
             justify-content: center;
-            transition: transform 0.3s ease;
         }
 
-        /* FLECHAS DE NAVEGACIÓN - DISEÑO MEJORADO */
+        /* Hexágonos */
+        .modulo {
+            width: 150px;
+            height: 170px;
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+            display: flex; 
+            justify-content: center; 
+            align-items: center;
+            text-align: center; 
+            text-decoration: none; 
+            font-weight: bold; 
+            font-size: 0.9rem;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            padding: 10px;
+            word-break: break-word;
+        }
+
+        /* Fase Tesla - ARENA DORADA */
+        .fase-Tesla .modulo { 
+            background: linear-gradient(135deg, var(--arena-dorada), var(--arena-oscura)); 
+            color: #2c1810; 
+            border: 3px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .fase-Tesla .modulo:hover {
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 0 15px 30px var(--sombra-arena);
+            border-color: white;
+        }
+
+        /* Fase Mandelbrot - AZUL VIBRANTE */
+        .fase-Mandelbrot .modulo { 
+            background: linear-gradient(135deg, var(--azul-medio), var(--azul-profundo)); 
+            color: var(--texto-blanco); 
+            border: 3px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .fase-Mandelbrot .modulo:hover {
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 0 15px 30px var(--sombra-azul);
+            border-color: var(--azul-cielo);
+        }
+
+        /* Botones de navegación */
         .btn-nav {
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
@@ -104,6 +191,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            margin: 0 10px;
         }
 
         .btn-nav:hover { 
@@ -113,64 +201,31 @@
             box-shadow: 0 0 15px var(--sombra-arena);
         }
 
-        /* ESTILO HEXÁGONOS - AZUL & ARENA */
-        .modulo {
-            width: 150px;
-            height: 170px;
-            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-            display: flex; 
-            justify-content: center; 
-            align-items: center;
-            text-align: center; 
-            text-decoration: none; 
-            font-weight: bold; 
-            font-size: 0.9rem;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        /* FASE SOL - ARENA DORADA */
-        .fase-sol .modulo { 
-            background: linear-gradient(135deg, var(--arena-dorada), var(--arena-oscura)); 
-            color: #2c1810; 
-            border: 3px solid rgba(255, 255, 255, 0.3);
-        }
-
-        .fase-sol .modulo:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 10px 25px var(--sombra-arena);
-            border-color: white;
-        }
-
-        /* FASE LUNA - AZUL VIBRANTE */
-        .fase-luna .modulo { 
-            background: linear-gradient(135deg, var(--azul-medio), var(--azul-profundo)); 
-            color: var(--texto-blanco); 
-            border: 3px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .fase-luna .modulo:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 10px 25px var(--sombra-azul);
-            border-color: var(--azul-cielo);
-        }
-
-        /* CENTRO MEJORADO */
+        /* Centro */
         .centro-humor {
-            width: 100px; 
-            height: 100px; 
+            width: 120px; 
+            height: 120px; 
             background: radial-gradient(circle, var(--azul-cielo), var(--arena-dorada));
             border-radius: 50%; 
-            margin: 25px auto; 
+            margin: 30px auto; 
             display: flex; 
             justify-content: center;
             align-items: center; 
             color: var(--texto-blanco); 
             font-weight: 900; 
             font-size: 0.9rem;
-            box-shadow: 0 0 30px rgba(78, 201, 240, 0.5);
+            box-shadow: 0 0 40px rgba(78, 201, 240, 0.7);
             animation: pulse 3s ease-in-out infinite;
             border: 3px solid white;
+            text-align: center;
+            padding: 10px;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+
+        .centro-humor:hover {
+            transform: scale(1.05);
+            animation: none;
         }
 
         @keyframes pulse {
@@ -178,62 +233,52 @@
             50% { transform: scale(1.05); }
         }
 
-        /* ETIQUETAS MEJORADAS */
-        .etiqueta { 
-            font-size: 0.9rem; 
-            letter-spacing: 2px; 
-            text-align: center; 
-            margin-bottom: 15px;
-            font-weight: bold;
-            padding: 8px 15px;
-            border-radius: 20px;
-            display: inline-block;
+        /* Indicadores de carrusel */
+        .indicadores {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 15px;
         }
 
-        .etiqueta-sol {
-            color: var(--arena-dorada);
-            background: rgba(244, 162, 97, 0.1);
-            border: 1px solid rgba(244, 162, 97, 0.3);
+        .indicador {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: background 0.3s ease;
         }
 
-        .etiqueta-luna {
+        .indicador.activo {
+            background: var(--arena-dorada);
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 40px;
+            padding: 20px;
+            text-align: center;
+            width: 100%;
+            max-width: 800px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--texto-arena);
+            font-size: 0.9rem;
+        }
+
+        footer a {
             color: var(--azul-cielo);
-            background: rgba(78, 201, 240, 0.1);
-            border: 1px solid rgba(78, 201, 240, 0.3);
+            text-decoration: none;
+            margin: 0 10px;
+            transition: color 0.3s ease;
         }
 
-        /* RESPONSIVE */
-        @media (max-width: 600px) {
-            .sync-container {
-                padding: 10px;
-            }
-            
-            .carrusel {
-                width: 160px;
-                gap: 30px;
-            }
-            
-            .item-hex {
-                flex: 0 0 160px;
-            }
-            
-            .modulo {
-                width: 140px;
-                height: 160px;
-            }
-            
-            h1 {
-                font-size: 1.8rem;
-            }
-            
-            .btn-nav {
-                width: 40px;
-                height: 40px;
-                padding: 8px;
-            }
+        footer a:hover {
+            color: var(--arena-dorada);
+            text-decoration: underline;
         }
 
-        /* EFECTO DE FONDO SUTIL */
+        /* Fondo decorativo */
         body::before {
             content: '';
             position: fixed;
@@ -248,54 +293,229 @@
             z-index: -1;
             opacity: 0.5;
         }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .sync-container {
+                padding: 10px;
+            }
+
+            .carrusel {
+                width: 160px;
+                gap: 30px;
+            }
+
+            .item-hex {
+                flex: 0 0 160px;
+            }
+
+            .modulo {
+                width: 140px;
+                height: 160px;
+                font-size: 0.85rem;
+            }
+
+            .btn-nav {
+                width: 40px;
+                height: 40px;
+                padding: 8px;
+                margin: 0 5px;
+            }
+
+            .centro-humor {
+                width: 100px;
+                height: 100px;
+                font-size: 0.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .subtitle {
+                font-size: 0.9rem;
+            }
+
+            .etiqueta {
+                font-size: 0.9rem;
+                padding: 8px 16px;
+            }
+
+            .modulo {
+                width: 130px;
+                height: 150px;
+                font-size: 0.8rem;
+            }
+        }
     </style>
 </head>
 <body>
-
     <header>
         <h1>BioSTaiR-11</h1>
         <p class="subtitle">Sistema de Correlación Neuronal</p>
     </header>
 
-    <div class="sync-container">
-        
-        <!-- FASE SOL - ARENA DORADA -->
-        <div class="etiqueta etiqueta-sol">ESTRUCTURA FLEXIBLE (G-C)</div>
-        <div class="slider-wrapper">
-            <button class="btn-nav" onclick="moveSlider('sol', -1)">&#10094;</button>
-            <div class="carrusel fase-sol" id="slider-sol">
-                <div class="item-hex"><a href="01-Origen-y-Significado.html" class="modulo">ORIGEN Y SIGNIFICADO</a></div>
-                <div class="item-hex"><a href="02-Fundamentos-Teóricos.html" class="modulo">FUNDAMENTOS TEORICOS</a></div>
-                <div class="item-hex"><a href="03-Investigación-y-Desarrollo.html" class="modulo">INVESTIGACIÓN Y DESARROLLO(PRESENTACIÓN UD)</a></div>
-                <div class="item-hex"><a href="04-Modelo-de-Negocio-y-Aplicaciones.html" class="modulo">MODELO DE NEGOCIO Y APLICACIONES</a></div>
+    <main class="sync-container">
+        <!-- FASE Tesla - ARENA DORADA -->
+        <section class="fase-Tesla" aria-label="Fase Tesla: Estructura Flexible">
+            <div class="etiqueta etiqueta-Tesla">ESTRUCTURA FLEXIBLE (G-C)</div>
+            <div class="slider-wrapper">
+                <button class="btn-nav" onclick="moveSlider('Tesla', -1)" aria-label="Anterior módulo">
+                    &#10094;
+                </button>
+                <div class="carrusel fase-Tesla" id="slider-Tesla">
+                    <div class="item-hex">
+                        <a href="01-Origen-y-Significado.html" class="modulo">ORIGEN Y SIGNIFICADO</a>
+                    </div>
+                    <div class="item-hex">
+                        <a href="02-Fundamentos-Teóricos.html" class="modulo">FUNDAMENTOS TEÓRICOS</a>
+                    </div>
+                    <div class="item-hex">
+                        <a href="03-Investigación-y-Desarrollo.html" class="modulo">INVESTIGACIÓN Y DESARROLLO (PRESENTACIÓN UD)</a>
+                    </div>
+                    <div class="item-hex">
+                        <a href="04-Modelo-de-Negocio-y-Aplicaciones.html" class="modulo">MODELO DE NEGOCIO Y APLICACIONES</a>
+                    </div>
+                </div>
+                <button class="btn-nav" onclick="moveSlider('Tesla', 1)" aria-label="Siguiente módulo">
+                    &#10095;
+                </button>
             </div>
-            <button class="btn-nav" onclick="moveSlider('sol', 1)">&#10095;</button>
-        </div>
+            <div class="indicadores" id="indicadores-Tesla">
+                <!-- Los indicadores se generan con JavaScript -->
+            </div>
+        </section>
 
         <!-- CENTRO -->
-        <div class="centro-humor">DIM 12</div>
+        <a href="NewroSync-11.html" class="centro-humor">EXPERIMENTA NEWROSYNC-11</a>
 
-        <!-- FASE LUNA - AZUL VIBRANTE -->
-        <div class="etiqueta etiqueta-luna">FLEXIBILIDAD ESTRUCTURADA (A-T)</div>
-        <div class="slider-wrapper">
-            <button class="btn-nav" onclick="moveSlider('luna', -1)">&#10094;</button>
-            <div class="carrusel fase-luna" id="slider-luna">
-                <div class="item-hex"><a href="05-Ciencia-Arte-y-Cultura.html.html" class="modulo">CIENCIA, ARTE Y CULTURA</a></div>
-                <div class="item-hex"><a href="06-Historia-y-Neuroplasticidad.html" class="modulo">HISTORIA Y NEUROPLASTICIDAD (DAVINCI, BETHOVEN ETC.)</a></div>
-                <div class="item-hex"><a href="07-La-Era-Humano-IA.html" class="modulo">LA ERA HUMANO-IA</a></div>
-                <div class="item-hex"><a href="08-Por-Definir.html" class="modulo">RESERVADO</a></div>
+        <!-- FASE Mandelbrot - AZUL VIBRANTE -->
+        <section class="fase-Mandelbrot" aria-label="Fase Mandelbrot: Flexibilidad Estructurada">
+            <div class="etiqueta etiqueta-Mandelbrot">FLEXIBILIDAD ESTRUCTURADA (A-T)</div>
+            <div class="slider-wrapper">
+                <button class="btn-nav" onclick="moveSlider('Mandelbrot', -1)" aria-label="Anterior módulo">
+                    &#10094;
+                </button>
+                <div class="carrusel fase-Mandelbrot" id="slider-Mandelbrot">
+                    <div class="item-hex">
+                        <a href="05-Ciencia-Arte-y-Cultura.html" class="modulo">CIENCIA, ARTE Y CULTURA</a>
+                    </div>
+                    <div class="item-hex">
+                        <a href="06-Historia-y-Neuroplasticidad.html" class="modulo">HISTORIA Y NEUROPLASTICIDAD (DAVINCI, BEETHOVEN, ETC.)</a>
+                    </div>
+                    <div class="item-hex">
+                        <a href="07-La-Era-Humano-IA.html" class="modulo">LA ERA HUMANO-IA</a>
+                    </div>
+                    <div class="item-hex">
+                        <a href="08-Comunidad-BioSTaiR.html" class="modulo">COMUNIDAD BIOSTAIR</a>
+                    </div>
+                </div>
+                <button class="btn-nav" onclick="moveSlider('Mandelbrot', 1)" aria-label="Siguiente módulo">
+                    &#10095;
+                </button>
             </div>
-            <button class="btn-nav" onclick="moveSlider('luna', 1)">&#10095;</button>
-        </div>
+            <div class="indicadores" id="indicadores-Mandelbrot">
+                <!-- Los indicadores se generan con JavaScript -->
+            </div>
+        </section>
+    </main>
 
-    </div>
+    <footer>
+        <p>
+            <a href="https://github.com/biostair11/biostair11" target="_blank" rel="noopener">GitHub</a> | 
+            <a href="mailto:tu@email.com">Contacto</a> |
+            <a href="/bitacora">Bitácora de Evidencia</a> |
+            <a href="NewroSync-11.html">Experimenta NewroSync-11</a>
+        </p>
+        <p>© 2026 BioSTaiR-11 | Modelo de Negocio Ético Linux/Red Hat</p>
+    </footer>
 
     <script>
+        // Configuración del carrusel
+        const fases = ['Tesla', 'Mandelbrot'];
+        const itemsPorFase = {
+            Tesla: 4,
+            Mandelbrot: 4
+        };
+
+        // Inicializar indicadores para cada fase
+        fases.forEach(fase => {
+            const contenedor = document.getElementById(`indicadores-${fase}`);
+            for (let i = 0; i < itemsPorFase[fase]; i++) {
+                const indicador = document.createElement('div');
+                indicador.classList.add('indicador');
+                if (i === 0) indicador.classList.add('activo');
+                indicador.addEventListener('click', () => {
+                    moveToSlide(fase, i);
+                });
+                contenedor.appendChild(indicador);
+            }
+        });
+
+        // Función para mover el slider
         function moveSlider(fase, direccion) {
-            const slider = document.getElementById('slider-' + fase);
-            const scrollAmount = 220; // Ancho del item + gap
-            slider.scrollBy({ left: direccion * scrollAmount, behavior: 'smooth' });
+            const slider = document.getElementById(`slider-${fase}`);
+            const itemWidth = 180 + 40; // ancho + gap
+            const scrollAmount = itemWidth * direccion;
+            const newScrollLeft = slider.scrollLeft + scrollAmount;
+            
+            // Asegurarse de no salirse de los límites
+            const maxScroll = slider.scrollWidth - slider.clientWidth;
+            const finalScroll = Math.max(0, Math.min(newScrollLeft, maxScroll));
+            
+            slider.scrollTo({
+                left: finalScroll,
+                behavior: 'smooth'
+            });
+            
+            // Actualizar indicadores después de un pequeño retraso
+            setTimeout(() => updateIndicators(fase), 300);
         }
+
+        // Función para mover a un slide específico
+        function moveToSlide(fase, index) {
+            const slider = document.getElementById(`slider-${fase}`);
+            const itemWidth = 180 + 40; // ancho + gap
+            const scrollAmount = itemWidth * index;
+            
+            slider.scrollTo({
+                left: scrollAmount,
+                behavior: 'smooth'
+            });
+            
+            // Actualizar indicadores
+            updateIndicators(fase);
+        }
+
+        // Función para actualizar los indicadores
+        function updateIndicators(fase) {
+            const slider = document.getElementById(`slider-${fase}`);
+            const indicadores = document.querySelectorAll(`#indicadores-${fase} .indicador`);
+            const itemWidth = 180 + 40;
+            const currentIndex = Math.round(slider.scrollLeft / itemWidth);
+            
+            indicadores.forEach((ind, index) => {
+                if (index === currentIndex) {
+                    ind.classList.add('activo');
+                } else {
+                    ind.classList.remove('activo');
+                }
+            });
+        }
+
+        // Actualizar indicadores al hacer scroll
+        fases.forEach(fase => {
+            const slider = document.getElementById(`slider-${fase}`);
+            slider.addEventListener('scroll', () => {
+                updateIndicators(fase);
+            });
+        });
 
         // Efecto hover táctil para móviles
         document.querySelectorAll('.modulo').forEach(modulo => {
@@ -310,12 +530,13 @@
             });
         });
 
-        // Inicialización - mostrar primer hexágono centrado
+        // Inicialización
         window.addEventListener('load', () => {
-            document.getElementById('slider-sol').scrollLeft = 0;
-            document.getElementById('slider-luna').scrollLeft = 0;
+            fases.forEach(fase => {
+                document.getElementById(`slider-${fase}`).scrollLeft = 0;
+                updateIndicators(fase);
+            });
         });
     </script>
-
 </body>
 </html>
